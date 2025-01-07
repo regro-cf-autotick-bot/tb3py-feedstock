@@ -7,28 +7,30 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/tb3py-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/tb3py-{{ version }}.tar.gz
   sha256: 6105173883cd6cbf8544413aedf5e5aa4f47bcaa62be9a8ec8c94a951345f9cd
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
     - requests >=2.26.0
   run:
     - jarvis-tools
     - julia >=0.5.6
     - numpy >=1.19.5
     - pytest
-    - python >=3.6
+    - python >={{ python_min }}
     - requests >=2.26.0
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - tb3py
     - tb3py.tests
